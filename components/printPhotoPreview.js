@@ -44,7 +44,6 @@ export default function PrintPhotoPreview() {
               alt=""
               objectFit="cover"
               layout="fill"
-              // NOTE: Don't need cache & costs associated with it
               unoptimized
             />
           </StyledImage>
