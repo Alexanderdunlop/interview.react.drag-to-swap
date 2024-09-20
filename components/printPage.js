@@ -19,14 +19,16 @@ const Header = styled.div`
 const Title = styled.div`
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  line-height: 0.8rem;
+  text-transform: uppercase;
 `;
 
 const PageLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  background: #2778a5;
+  background: #6634c5;
   border-radius: 8px;
   padding: 20px;
   margin: 17px 0 42px;
