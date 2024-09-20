@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import Actions from "./actions";
-import Image from "next/image";
-
-const Wrapper = styled.div`
-  width: 600px;
-  margin: auto;
-  color: #585858;
-`;
-
-const PrintWrapper = styled.div``;
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import PrintPhoto from "./printPhoto";
+import PrintPhotoPreview from "./printPhotoPreview";
+import { Fragment } from "react";
 
 const Header = styled.div`
   display: flex;
@@ -23,6 +19,7 @@ const Title = styled.div`
   letter-spacing: 0.1rem;
   line-height: 0.8rem;
   text-transform: uppercase;
+  color: #585858;
 `;
 
 const PageLayout = styled.div`
@@ -35,46 +32,34 @@ const PageLayout = styled.div`
   justify-content: space-between;
 `;
 
-const PrintPhoto = styled.div`
-  width: calc(50% - 10px);
-  position: relative;
-  padding-top: 50%;
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover;
-`;
-
+/**
+ *
+ * @param {Object} props
+ * @param {Array<{
+ *  title: string,
+ *  images: Array<string>
+ * }>} props.data
+ * @returns {JSX.Element}
+ */
 export default function PrintPage({ data }) {
   return (
-    <>
-      <Wrapper>
-        {Object.values(data).map((entry, i) => {
-          return (
-            <PrintWrapper key={i}>
-              <Header>
-                <Title>{entry.title}</Title>
-                <Actions />
-              </Header>
-              <PageLayout>
-                {entry.images.map((image) => {
-                  return (
-                    <PrintPhoto key={image}>
-                      <StyledImage
-                        src={image}
-                        alt=""
-                        layout="fill"
-                        // NOTE: Don't need cache & costs associated with it
-                        unoptimized
-                      />
-                    </PrintPhoto>
-                  );
-                })}
-              </PageLayout>
-            </PrintWrapper>
-          );
-        })}
-      </Wrapper>
-    </>
+    <DndProvider backend={HTML5Backend}>
+      {Object.values(data).map((entry, i) => {
+        return (
+          <Fragment key={i}>
+            <Header>
+              <Title>{entry.title}</Title>
+              <Actions />
+            </Header>
+            <PageLayout>
+              {entry.images.map((image) => {
+                return <PrintPhoto key={image} image={image} />;
+              })}
+            </PageLayout>
+          </Fragment>
+        );
+      })}
+      <PrintPhotoPreview />
+    </DndProvider>
   );
 }
