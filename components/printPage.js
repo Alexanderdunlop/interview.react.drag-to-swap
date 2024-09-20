@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Actions from "./actions";
+import Image from "next/image";
 
 const Wrapper = styled.div`
   width: 600px;
@@ -34,10 +35,12 @@ const PageLayout = styled.div`
 
 const PrintPhoto = styled.div`
   width: calc(50% - 10px);
+  position: relative;
+  padding-top: 50%;
+`;
 
-  img {
-    max-width: 100%;
-  }
+const StyledImage = styled(Image)`
+  object-fit: cover;
 `;
 
 export default function PrintPage({ data }) {
@@ -55,7 +58,13 @@ export default function PrintPage({ data }) {
                 {entry.images.map((image) => {
                   return (
                     <PrintPhoto key={image}>
-                      <img src={image} alt="" />
+                      <StyledImage
+                        src={image}
+                        alt=""
+                        layout="fill"
+                        // NOTE: Don't need cache & costs associated with it
+                        unoptimized
+                      />
                     </PrintPhoto>
                   );
                 })}
