@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 // NOTE: Also used for calculating the width of the preview photo
 export const PageContainer = styled.div`
-  width: 600px;
+  width: 90%;
+  max-width: 600px;
   margin: auto;
 `;
 
